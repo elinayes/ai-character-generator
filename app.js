@@ -544,6 +544,24 @@ function openPreviewModal() {
 function updatePreview() {
     const format = $('#export-format').value;
     const char = state.currentCharacter;
+    
+    // 调试：检查数据
+    console.log('Preview data:', char);
+    
+    // 如果 modules 为空，先从页面上的 textarea 收集数据
+    if (!char.modules || Object.keys(char.modules).length === 0) {
+        char.modules = {};
+    }
+    
+    // 确保从页面收集最新数据
+    $$('.module-textarea').forEach(textarea => {
+        const moduleId = textarea.dataset.moduleId;
+        const value = textarea.value.trim();
+        if (value) {
+            char.modules[moduleId] = value;
+        }
+    });
+    
     let output = '';
 
     if (format === 'yaml') {
@@ -552,6 +570,11 @@ function updatePreview() {
         output = JSON.stringify(char, null, 2);
     } else {
         output = generateText(char);
+    }
+
+    // 如果还是空的，显示提示
+    if (!output.trim()) {
+        output = '暂无内容。请先填写角色设定模块。';
     }
 
     $('#export-preview').value = output;
