@@ -579,26 +579,197 @@ body {
     display: none !important;
 }
 
-/* 响应式 */
+/* 响应式 - 移动端 */
 @media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+    
     .sidebar {
         width: 100%;
         height: auto;
-        position: relative;
-        padding: 16px;
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        right: 0;
+        padding: 8px 12px;
+        border-right: none;
+        border-top: 1px solid var(--border-color);
+        background: var(--bg-secondary);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .logo {
+        font-size: 14px;
+        margin-bottom: 0;
+        padding-left: 0;
+        display: none; /* 手机端隐藏 logo */
     }
     
     .nav {
         flex-direction: row;
-        overflow-x: auto;
+        width: 100%;
+        justify-content: space-around;
+        gap: 0;
+    }
+    
+    .nav-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        text-align: center;
+        border-radius: 6px;
+        flex: 1;
     }
     
     .main-content {
         margin-left: 0;
         padding: 16px;
+        padding-bottom: 80px; /* 给底部导航留空间 */
+        max-width: 100%;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .page-header h2 {
+        font-size: 20px;
+    }
+    
+    .header-actions {
+        width: 100%;
+    }
+    
+    .header-actions .btn {
+        flex: 1;
     }
     
     .form-row {
         grid-template-columns: 1fr;
+    }
+    
+    .type-selector {
+        flex-direction: column;
+    }
+    
+    .type-option {
+        width: 100%;
+    }
+    
+    .relationship-presets {
+        justify-content: flex-start;
+    }
+    
+    .preset-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .card {
+        padding: 16px;
+    }
+    
+    .card h3 {
+        font-size: 15px;
+    }
+    
+    .module-header {
+        padding: 10px 12px;
+    }
+    
+    .module-content {
+        padding: 12px;
+    }
+    
+    .module-actions {
+        flex-wrap: wrap;
+    }
+    
+    /* 弹窗移动端适配 */
+    .modal {
+        width: 95%;
+        max-height: 85vh;
+        margin-bottom: 60px;
+    }
+    
+    .modal-body {
+        padding: 16px;
+    }
+    
+    .modal-footer {
+        flex-wrap: wrap;
+        padding: 12px 16px;
+    }
+    
+    .modal-footer .btn {
+        flex: 1;
+        min-width: 45%;
+    }
+    
+    /* 存档列表 */
+    .archive-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .archive-item-actions {
+        width: 100%;
+    }
+    
+    .archive-item-actions .btn {
+        flex: 1;
+    }
+    
+    /* Toast 位置调整 */
+    .toast-container {
+        top: auto;
+        bottom: 80px;
+        right: 16px;
+        left: 16px;
+    }
+    
+    .toast {
+        width: 100%;
+    }
+    
+    /* 输入框调整 */
+    .input-with-btn {
+        flex-direction: column;
+    }
+    
+    .input-with-btn .btn-small {
+        width: 100%;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+    }
+}
+
+/* 更小屏幕 */
+@media (max-width: 400px) {
+    .nav-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    
+    .main-content {
+        padding: 12px;
+        padding-bottom: 70px;
+    }
+    
+    .page-header h2 {
+        font-size: 18px;
     }
 }
