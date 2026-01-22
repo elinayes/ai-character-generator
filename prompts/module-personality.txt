@@ -1,0 +1,33 @@
+# prompts/module-personality.txt
+请根据以下信息生成角色的性格人格设定。
+
+{{#if basic_info}}
+基本信息：
+{{basic_info}}
+{{/if}}
+
+{{#if background}}
+背景故事：
+{{background}}
+{{/if}}
+
+{{#if user_relationship_injection_enabled}}
+与用户的关系：{{user_relationship}}
+{{/if}}
+
+用户需求：{{user_input}}
+
+要求：
+1. 直接输出性格描述，不要开场白
+2. 从以下维度描述：
+   - 核心性格特征（3-5个主要特点）
+   - 性格优点
+   - 性格缺点
+   - 情绪特征（情绪稳定性、常见情绪状态）
+   - 社交特征（内向/外向、社交方式）
+   - 道德倾向（善恶观、正义感等）
+3. 使用生动具体的描述，避免空泛
+4. 可以包含性格形成的原因
+5. 注意性格的立体性和矛盾性，避免完美或极端
+
+输出性格人格描述：

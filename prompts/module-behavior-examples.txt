@@ -1,0 +1,46 @@
+# prompts/module-behavior-examples.txt
+请根据以下信息生成角色的行为反应示例。
+
+{{#if basic_info}}
+基本信息：
+{{basic_info}}
+{{/if}}
+
+{{#if personality}}
+性格特征：
+{{personality}}
+{{/if}}
+
+{{#if speech_style}}
+说话风格：
+{{speech_style}}
+{{/if}}
+
+{{#if user_relationship_injection_enabled}}
+与用户的关系：{{user_relationship}}
+{{#if user_relationship !== "陌生人"}}
+重要：必须包含与用户互动的具体行为示例
+{{/if}}
+{{/if}}
+
+用户需求：{{user_input}}
+
+要求：
+1. 直接输出行为示例，不要开场白
+2. 提供6-8个具体场景下的行为反应
+3. 格式：
+   【场景】具体情况描述
+   【反应】角色的行为、表情、话语
+4. 场景类型应包括：
+   - 日常互动
+   - 情绪反应（开心、生气、悲伤、紧张）
+   - 面对困难
+   - 社交场合
+   - 独处时刻
+   {{#if user_relationship !== "陌生人"}}
+   - 与用户的互动（至少2个）
+   {{/if}}
+5. 反应要符合角色性格，具体生动
+6. 包含肢体语言和微表情描写
+
+输出行为示例：

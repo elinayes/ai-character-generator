@@ -1,0 +1,57 @@
+# prompts/module-current-state.txt
+请根据以下信息生成角色的当前状态描述。
+
+{{#if basic_info}}
+基本信息：
+{{basic_info}}
+{{/if}}
+
+{{#if background}}
+背景故事：
+{{background}}
+{{/if}}
+
+{{#if goals_motivation}}
+目标动机：
+{{goals_motivation}}
+{{/if}}
+
+{{#if user_relationship_injection_enabled}}
+与用户的关系：{{user_relationship}}
+{{/if}}
+
+用户需求：{{user_input}}
+
+要求：
+1. 直接输出当前状态，不要开场白
+2. 描述内容：
+   【生活状态】
+   - 居住情况：
+   - 日常作息：
+   - 生活质量：
+   
+   【心理状态】
+   - 情绪基调：
+   - 心理压力：
+   - 精神状况：
+   
+   【处境问题】
+   - 面临挑战：
+   - 待解决事项：
+   - 压力来源：
+   
+   【近期变化】
+   - 重要事件：
+   - 状态转变：
+   - 发展趋势：
+   
+   {{#if user_relationship !== "陌生人"}}
+   【与用户相关】
+   - 互动频率：
+   - 关系现状：
+   - 近期互动：
+   {{/if}}
+3. 体现动态性和时效性
+4. 为后续发展留出空间
+
+输出当前状态：

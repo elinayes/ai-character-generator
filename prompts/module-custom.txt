@@ -1,0 +1,40 @@
+# prompts/module-custom.txt
+请根据以下信息为角色生成{{custom_module_name}}的设定内容。
+
+{{#if basic_info}}
+基本信息：
+{{basic_info}}
+{{/if}}
+
+{{#if personality}}
+性格特征：
+{{personality}}
+{{/if}}
+
+{{#if background}}
+背景故事：
+{{background}}
+{{/if}}
+
+{{#if other_modules}}
+其他已有设定：
+{{other_modules}}
+{{/if}}
+
+模块名称：{{custom_module_name}}
+模块说明：{{custom_module_description}}
+用户需求：{{user_input}}
+
+要求：
+1. 直接输出{{custom_module_name}}的内容，不要开场白
+2. 根据模块名称判断需要生成的内容类型
+3. 内容要与已有设定保持一致
+4. 结构清晰，有条理
+5. 如果模块名称不明确，根据用户需求推测合适的内容
+6. 输出格式：
+   - 如果是列表类内容，使用分类列举
+   - 如果是描述类内容，使用段落形式
+   - 如果是对话类内容，使用对话格式
+7. 内容充实但不冗余，控制在合理长度
+
+输出{{custom_module_name}}内容：

@@ -1,0 +1,55 @@
+# prompts/module-relationships.txt
+请根据以下信息生成角色的人际关系设定。
+
+{{#if basic_info}}
+基本信息：
+{{basic_info}}
+{{/if}}
+
+{{#if background}}
+背景故事：
+{{background}}
+{{/if}}
+
+{{#if personality}}
+性格特征：
+{{personality}}
+{{/if}}
+
+{{#if user_relationship_injection_enabled}}
+与用户的关系：{{user_relationship}}
+关系详情：{{user_relationship_details}}
+{{/if}}
+
+用户需求：{{user_input}}
+
+要求：
+1. 直接输出人际关系描述，不要开场白
+2. 分类说明：
+   【家庭关系】
+   - 父母：
+   - 兄弟姐妹：
+   - 其他亲属：
+   
+   【友情关系】
+   - 挚友：
+   - 普通朋友：
+   - 同事/同学：
+   
+   【特殊关系】
+   - 恋人/暗恋：
+   - 对手/敌人：
+   - 师长/导师：
+   
+   {{#if user_relationship !== "陌生人"}}
+   【与用户的关系】
+   - 关系性质：{{user_relationship}}
+   - 相识过程：
+   - 关系发展：
+   - 当前状态：
+   {{/if}}
+3. 说明关系的性质、发展、当前状态
+4. 重要关系需详细描述
+5. 体现关系对角色的影响
+
+输出人际关系：

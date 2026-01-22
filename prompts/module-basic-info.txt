@@ -1,0 +1,38 @@
+# prompts/module-basic-info.txt
+请根据以下信息生成角色的基本信息设定。
+
+{{#if user_relationship_injection_enabled}}
+用户关系：{{user_relationship}}
+{{/if}}
+
+{{#if work_name}}
+作品背景：{{work_name}}
+{{/if}}
+
+{{#if existing_basic_info}}
+已有基本信息：
+{{existing_basic_info}}
+{{/if}}
+
+用户需求：{{user_input}}
+
+要求：
+1. 直接输出角色基本信息，不要开场白或解释
+2. 包含以下要素：
+   - 姓名（包括全名、昵称、别名等）
+   - 年龄（具体年龄或年龄段）
+   - 性别
+   - 种族/物种（如果非人类）
+   - 身高体重（可选）
+   - 外貌特征（简要描述最显著特征）
+   - 身份职业
+   - 出身地/居住地
+3. 信息要简洁明确，每项用简短语句说明
+4. 格式示例：
+   姓名：xxx
+   年龄：xx岁
+   性别：x
+   身份：xxx
+   （以此类推）
+
+直接输出基本信息内容：

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 角色生成器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <h1 class="logo">角色生成器</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-page="editor">创建角色</button>
+                <button class="nav-btn" data-page="archive">角色存档</button>
+                <button class="nav-btn" data-page="settings">设置</button>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 创建角色页 -->
+            <section id="page-editor" class="page active">
+                <header class="page-header">
+                    <h2>创建角色</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" id="btn-save-character">保存角色</button>
+                        <button class="btn btn-primary" id="btn-preview">预览导出</button>
+                    </div>
+                </header>
+
+                <!-- 角色类型选择 -->
+                <div class="card" id="character-type-section">
+                    <h3>角色类型</h3>
+                    <div class="type-selector">
+                        <label class="type-option">
+                            <input type="radio" name="character-type" value="original" checked>
+                            <span>原创角色</span>
+                        </label>
+                        <label class="type-option">
+                            <input type="radio" name="character-type" value="fanwork">
+                            <span>同人角色</span>
+                        </label>
+                    </div>
+
+                    <!-- 同人角色额外输入 -->
+                    <div id="fanwork-inputs" class="fanwork-inputs hidden">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>作品名称</label>
+                                <input type="text" id="work-name" class="input" placeholder="例如：原神">
+                            </div>
+                            <div class="form-group">
+                                <label>角色名称</label>
+                                <input type="text" id="character-name" class="input" placeholder="例如：钟离">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="btn-generate-fanwork">一键生成同人角色</button>
+                    </div>
+                </div>
+
+                <!-- 用户关系设置 -->
+                <div class="card">
+                    <h3>用户与角色的关系</h3>
+                    <p class="hint">这将影响角色如何看待你、与你互动的方式</p>
+                    <div class="relationship-presets">
+                        <button class="preset-btn" data-value="陌生人">陌生人</button>
+                        <button class="preset-btn" data-value="恋人">恋人</button>
+                        <button class="preset-btn" data-value="朋友">朋友</button>
+                        <button class="preset-btn" data-value="兄妹">兄妹</button>
+                        <button class="preset-btn" data-value="姐弟">姐弟</button>
+                        <button class="preset-btn" data-value="同事">同事</button>
+                    </div>
+                    <input type="text" id="user-relationship" class="input" placeholder="或自定义关系...">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="inject-relationship" checked>
+                        <span>在各模块提示词中注入此关系设定</span>
+                    </label>
+                </div>
+
+                <!-- 模块编辑区 -->
+                <div class="card">
+                    <h3>角色设定模块</h3>
+                    <div class="modules-container" id="modules-container">
+                        <!-- 模块将由 JS 动态生成 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 角色存档页 -->
+            <section id="page-archive" class="page">
+                <header class="page-header">
+                    <h2>角色存档</h2>
+                </header>
+                <div class="card">
+                    <div class="archive-list" id="archive-list">
+                        <p class="empty-hint">暂无保存的角色</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 设置页 -->
+            <section id="page-settings" class="page">
+                <header class="page-header">
+                    <h2>设置</h2>
+                </header>
+
+                <!-- API 设置 -->
+                <div class="card">
+                    <h3>API 配置</h3>
+                    <div class="form-group">
+                        <label>API URL</label>
+                        <input type="text" id="api-url" class="input" placeholder="https://api.openai.com/v1">
+                    </div>
+                    <div class="form-group">
+                        <label>API Key</label>
+                        <div class="input-with-btn">
+                            <input type="password" id="api-key" class="input" placeholder="sk-...">
+                            <button class="btn btn-small" id="toggle-key">显示</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>模型</label>
+                        <div class="input-with-btn">
+                            <select id="api-model" class="input">
+                                <option value="">请先拉取模型列表</option>
+                            </select>
+                            <button class="btn btn-small" id="btn-fetch-models">拉取模型</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="btn-save-api">保存 API 配置</button>
+                    <span class="status-text" id="api-status"></span>
+                </div>
+
+                <!-- 提示词管理 -->
+                <div class="card">
+                    <h3>提示词管理</h3>
+                    <div class="form-group">
+                        <label>选择模块</label>
+                        <select id="prompt-module-select" class="input">
+                            <option value="fanwork-generate">同人角色一键生成</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>提示词内容</label>
+                        <textarea id="prompt-content" class="textarea" rows="15" placeholder="加载中..."></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" id="btn-reset-prompt">恢复默认</button>
+                        <button class="btn btn-primary" id="btn-save-prompt">保存提示词</button>
+                    </div>
+                </div>
+
+                <!-- 数据管理 -->
+                <div class="card">
+                    <h3>数据管理</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" id="btn-export-data">导出全部数据</button>
+                        <button class="btn btn-secondary" id="btn-import-data">导入数据</button>
+                    </div>
+                    <input type="file" id="import-file" accept=".json" style="display:none">
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 预览/导出弹窗 -->
+    <div class="modal-overlay hidden" id="preview-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>预览与导出</h3>
+                <button class="modal-close" id="close-preview">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>导出格式</label>
+                    <select id="export-format" class="input">
+                        <option value="yaml">YAML</option>
+                        <option value="text">纯文本</option>
+                        <option value="json">JSON</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>预览</label>
+                    <textarea id="export-preview" class="textarea" rows="20" readonly></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-copy-export">复制到剪贴板</button>
+                <button class="btn btn-primary" id="btn-download-export">下载文件</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI 助手弹窗 -->
+    <div class="modal-overlay hidden" id="ai-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>AI 助手 - <span id="ai-modal-module"></span></h3>
+                <button class="modal-close" id="close-ai-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>输入关键词或描述</label>
+                    <textarea id="ai-input" class="textarea" rows="4" placeholder="描述你想要的内容..."></textarea>
+                </div>
+                <button class="btn btn-primary" id="btn-ai-generate">生成</button>
+                <div class="form-group" style="margin-top: 16px;">
+                    <label>生成结果</label>
+                    <textarea id="ai-output" class="textarea" rows="10" readonly placeholder="AI 生成的内容将显示在这里..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-copy-ai">复制</button>
+                <button class="btn btn-primary" id="btn-apply-ai">应用到模块</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- 加载状态 -->
+    <div class="loading-overlay hidden" id="loading">
+        <div class="loading-spinner"></div>
+        <p id="loading-text">处理中...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

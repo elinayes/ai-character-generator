@@ -1,0 +1,36 @@
+# prompts/module-background.txt
+请根据以下信息生成角色的背景故事。
+
+{{#if basic_info}}
+基本信息：
+{{basic_info}}
+{{/if}}
+
+{{#if personality}}
+性格特征：
+{{personality}}
+{{/if}}
+
+{{#if user_relationship_injection_enabled}}
+与用户的关系：{{user_relationship}}
+{{#if user_relationship !== "陌生人"}}
+注意：需要包含与用户相识的经历
+{{/if}}
+{{/if}}
+
+用户需求：{{user_input}}
+
+要求：
+1. 直接输出背景故事，不要开场白
+2. 按时间顺序组织，包含：
+   - 出身家庭（家庭背景、父母情况）
+   - 童年经历（重要事件、性格形成）
+   - 成长历程（教育、训练、转折点）
+   - 重要事件（改变人生的关键时刻）
+   - 近期经历（当前状况的由来）
+3. 故事要连贯自然，有因果关系
+4. 突出对性格形成的影响
+5. 如果有与用户的关系，说明相识过程
+6. 控制在300-500字
+
+输出背景故事：
