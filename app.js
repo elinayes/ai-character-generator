@@ -410,6 +410,8 @@ MBTI：${info.mbti || ''}
             if (textarea) textarea.value = content;
         }
     });
+
+    saveCurrentCharacter();
 }
 
 // ==================== AI 调用 ====================
