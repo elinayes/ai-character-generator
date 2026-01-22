@@ -594,8 +594,18 @@ function generateYAML(char) {
     MODULE_CONFIG.forEach(module => {
         const content = char.modules[module.id];
         if (content) {
+            // 确保 content 是字符串
+            let contentStr = '';
+            if (typeof content === 'string') {
+                contentStr = content;
+            } else if (typeof content === 'object') {
+                contentStr = JSON.stringify(content, null, 2);
+            } else {
+                contentStr = String(content);
+            }
+            
             yaml += `${module.id}: |\n`;
-            content.split('\n').forEach(line => {
+            contentStr.split('\n').forEach(line => {
                 yaml += `  ${line}\n`;
             });
             yaml += '\n';
